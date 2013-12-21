@@ -1,10 +1,3 @@
-/*
- * CPort.cpp
- *
- *  Created on: Dec 20, 2013
- *      Author: root
- */
-
 #include "app.h"
 
 template<typename Port, typename Pin>

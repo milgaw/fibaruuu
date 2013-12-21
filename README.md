@@ -1,1 +1,1 @@
-initial commit
+Build with GNU ARM Eclipde plugin for convienience!
