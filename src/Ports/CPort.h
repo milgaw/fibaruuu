@@ -7,11 +7,14 @@ public:
 	CPort();
 	~CPort();
 public:
-	void setupClock();
-	void setupPort();
+
 	void setPort();
 	void resetPort();
 private:
+	void setupPort();
+	void setupPin();
+private:
+	GPIO_InitTypeDef m_portStructure;
 };
 
 #endif /* CPORT_H_ */
