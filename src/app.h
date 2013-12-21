@@ -27,11 +27,13 @@ extern "C"{
 	#include "usbd_core.h"
 }
 /*
- *PORTS Specs
+ * PORTS Specs
+ * TODO Specialize LED3 LED5 LED6
  */
 
 #include "Ports/CPort.h"
-#include "Ports/CPortD12.h"
+// LED 4
+#include "Ports/CPortD12.h
 
 /*
  * LEDS Specs

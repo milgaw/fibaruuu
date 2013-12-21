@@ -34,7 +34,6 @@ main(void)
    */
 
   RCC_ClocksTypeDef RCC_Clocks;
-
   /* Use SysTick as reference for the timer */
   RCC_GetClocksFreq(&RCC_Clocks);
   SysTick_Config(RCC_Clocks.HCLK_Frequency / SYSTICK_FREQUENCY_HZ);
@@ -60,6 +59,7 @@ main(void)
 
 		/* Turn on led by setting the pin low */
   	gLed.setPort();
+  	/* make led a listener of a timer */
 		Delay(BLINK_TICKS);
 		/* Turn off led by setting the pin high */
 		gLed.resetPort();
