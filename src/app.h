@@ -1,10 +1,3 @@
-/*
- * app.h
- *
- *  Created on: Dec 16, 2013
- *      Author: milosz
- */
-
 #ifndef APP_H_
 #define APP_H_
 
@@ -17,7 +10,11 @@
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
 #include <stdio.h>
-
+/*
+ * C++
+ */
+#include <unordered_map>
+#include <atomic>
 /*
  * USB DEVICE INTERFACE
  */
@@ -30,9 +27,24 @@ extern "C"{
 	#include "usbd_core.h"
 }
 /*
- * Timer Specializations
+ *PORTS Specs
  */
-#include "Interrupt/CTimerInterrupt.h"
+
+#include "Ports/CPort.h"
+#include "Ports/CPortD12.h"
+
+/*
+ * LEDS Specs
+ */
+#include "Leds/CLed.h"
+//#include "Leds/CLed1.h"
+
+/*
+ * Timer template and Specializations
+ */
+#include "Timers/CTimer.h"
+#include "Timers/CTimer2.h"
+
 /*
  * custom classes
  */
