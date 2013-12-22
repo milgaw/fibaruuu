@@ -15,8 +15,10 @@
  */
 #include <unordered_map>
 #include <atomic>
+#include <vector>
 /*
  * USB DEVICE INTERFACE
+ * TODO Get rid of that from root src
  */
 extern "C"{
 	#include "usbd_cdc_core.h"
@@ -33,24 +35,17 @@ extern "C"{
 
 #include "Ports/CPort.h"
 // LED 4
-#include "Ports/CPortD12.h
-
-/*
- * LEDS Specs
- */
-#include "Leds/CLed.h"
-//#include "Leds/CLed1.h"
+#include "Ports/CPortD12.h"
 
 /*
  * Timer template and Specializations
  */
 #include "Timers/CTimer.h"
 #include "Timers/CTimer2.h"
-
 /*
- * custom classes
+ * Temperature sensors
  */
-#include "Class/Class1.h"
-
+#include "TempSensor/CTempSensor.h"
+#include "TempSensor/CMaxim.h"
 
 #endif /* APP_H_ */

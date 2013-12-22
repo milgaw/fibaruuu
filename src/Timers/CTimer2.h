@@ -13,6 +13,11 @@ class CTimer<CTimer2>
  * public methods
  */
 public:
+	CTimer()
+	{
+		setupInterrupt();
+		setupTimer();
+	}
 
 	/*
 	 * TODO Timer Interrupt handler as template specialization
@@ -27,7 +32,12 @@ public:
 		if(0 == CTimer<CTimer2>::m_timer){
 			return true;
 		}
+		CTimer<CTimer2>::m_timer = 0;
 		return false;
+	}
+
+	bool registerListener(){
+
 	}
 
 /*
@@ -73,6 +83,7 @@ private:
 	private:
 		static uint32_t m_timer; 			//current timer value
 		static uint32_t m_setTimer; 	//value the timer was set
+
 
 };
 

@@ -8,12 +8,16 @@
 /*
  * STM32F4 CDC Usb Device interfacing to DS18B20.
  */
+#define SYSTICK_FREQUENCY_HZ       1000
 
 #define BLINK_TICKS     SYSTICK_FREQUENCY_HZ/2
 
 // ----------------------------------------------------------------------------
 /* ----- USB Device	--------------------------------------------------------- */
 __ALIGN_BEGIN USB_OTG_CORE_HANDLE    USB_OTG_dev __ALIGN_END ;
+extern "C" {
+void Delay(__IO uint32_t nTime);
+}
 
 int
 main(void)
@@ -23,7 +27,7 @@ main(void)
    * Send a greeting to the standard output (the semihosting debug channel
    * on Debug, ignored on Release).
    */
-  printf("Hello ARM World!\n");
+//  printf("Hello ARM World!\n");
 #endif
   /*
    * At this stage the microcontroller clock setting is already configured,
@@ -41,16 +45,18 @@ main(void)
   int seconds = 0;
 
 	//usb init
+  /*
+   * TODO callbacks as Functionals
+   */
 	USBD_Init(&USB_OTG_dev,
 	USB_OTG_FS_CORE_ID,
 	&USR_desc,
 	&USBD_CDC_cb,
 	&USR_cb);
 
-	Class1 class1;
-
-  CTimer<CTimer2> timer2;
   CGreenLed gLed;
+  CTimer<CTimer2> timer2;
+  CTempSensor<CMaxim> sen;
 //
   /* Infinite loop */
   while (1)
@@ -76,7 +82,49 @@ main(void)
     }
 }
 
-// ----------------------------------------------------------------------------
+/* ----- SysTick definitions ----------------------------------------------- */
+
+extern "C"{
+static __IO uint32_t uwTimingDelay;
+
+/**
+ * @brief  Inserts a delay time.
+ * @param  nTime: specifies the delay time length, in SysTick ticks.
+ * @retval None
+ */
+void Delay(__IO uint32_t nTime)
+{
+  uwTimingDelay = nTime;
+
+  while (uwTimingDelay != 0)
+    ;
+}
+
+/**
+ * @brief  Decrements the TimingDelay variable.
+ * @param  None
+ * @retval None
+ */
+void
+TimingDelay_Decrement(void)
+{
+  if (uwTimingDelay != 0x00)
+    {
+      uwTimingDelay--;
+    }
+}
 
 // ----------------------------------------------------------------------------
 
+/**
+ * @brief  This function is the SysTick Handler.
+ * @param  None
+ * @retval None
+ */
+void SysTick_Handler(void)
+{
+	TimingDelay_Decrement();
+}
+
+}
+// ----------------------------------------------------------------------------
