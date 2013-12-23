@@ -3,7 +3,7 @@
 /*
  * Generic Timer
  */
-template<typename Timer>
+template<typename Timer, typename... Listeners>
 class CTimer {
 public:
 	CTimer();
@@ -18,8 +18,7 @@ private:
  */
 	inline void setupInterrupt( void ){}
 	inline void setupTimer( void ){}
-private:
-//	std::vector<Listener> m_vListeners;
+
 };
 
 #endif /* CTIMER_H_ */

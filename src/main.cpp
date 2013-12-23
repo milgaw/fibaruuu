@@ -55,8 +55,12 @@ main(void)
 	&USR_cb);
 
   CGreenLed gLed;
+  /* TODO Could Timer take variable listener types?*/
   CTimer<CTimer2> timer2;
   CTempSensor<CMaxim> sen;
+
+
+  std::tuple<CPort<CPortD, CPin12>, CPort<CPortD, CPin12>>(CPort<CPortD, CPin12>(), CPort<CPortD, CPin12>());
 //
   /* Infinite loop */
   while (1)

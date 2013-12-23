@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <atomic>
 #include <vector>
+#include <tuple>
 /*
  * USB DEVICE INTERFACE
  * TODO Get rid of that from root src

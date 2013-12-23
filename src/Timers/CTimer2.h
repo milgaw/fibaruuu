@@ -6,8 +6,8 @@
  */
 class CTimer2;
 
-template<>
-class CTimer<CTimer2>
+template<typename... Listeners>
+class CTimer<CTimer2, Listeners...>
 {
 /*
  * public methods
@@ -18,27 +18,14 @@ public:
 		setupInterrupt();
 		setupTimer();
 	}
-
+	void registerListeners(Listeners... listeners){
+		/* TODO Move construct tuple */
+		m_listeners = std::tuple<Listeners...>(listeners...);
+	}
 	/*
 	 * TODO Timer Interrupt handler as template specialization
 	 */
 	static void TIM2_IRQHandler();
-	/*
-	 * update timer
-	 */
-	static bool updateTimer()
-	{
-		--CTimer<CTimer2>::m_timer;
-		if(0 == CTimer<CTimer2>::m_timer){
-			return true;
-		}
-		CTimer<CTimer2>::m_timer = 0;
-		return false;
-	}
-
-	bool registerListener(){
-
-	}
 
 /*
  * private methods
@@ -77,14 +64,11 @@ private:
 		TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
 	}
 
-	/*
-	 * private members
-	 */
-	private:
-		static uint32_t m_timer; 			//current timer value
-		static uint32_t m_setTimer; 	//value the timer was set
-
-
+/*
+ * private member variables
+ */
+private:
+	static std::tuple<Listeners...> m_listeners;
 };
 
 
